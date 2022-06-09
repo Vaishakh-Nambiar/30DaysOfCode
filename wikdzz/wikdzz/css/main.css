@@ -1,0 +1,25 @@
+body {
+  padding: 25px;
+  background-color: white;
+  color: black;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #0c0a00;
+  color: white;
+  text-align: right;
+}
+.img {
+  width: 500px;
+  height: 500px;
+  padding-left: 50px;
+}

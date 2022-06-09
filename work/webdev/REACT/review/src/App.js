@@ -8,8 +8,8 @@ import { FaGithub } from "react-icons/fa";
 function App() {
   return (
     <main>
-      <section classname="container">
-        <div classname="title">
+      <section className="container">
+        <div className="title">
           <h2>
             {/* <FaGithub /> */}
             reviews
