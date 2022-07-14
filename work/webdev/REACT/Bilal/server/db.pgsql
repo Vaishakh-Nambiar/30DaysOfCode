@@ -15,4 +15,4 @@
 -- INSERT INTO students values ('EEE20154','Vinay K',9517536248,'vk@gmail.com','20PR1');
 -- INSERT INTO students values ('ECE20147','Arjun S',6541237895,'as@gmail.com','22TC3');
 
-SELECT * FROM students;
+-- SELECT * FROM students;

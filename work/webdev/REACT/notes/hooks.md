@@ -203,3 +203,46 @@ function Login() {
 ---
 
 ## useEffect()
+- Run when the DOM or component data is 
+  - loaded/ mounted
+  - when state changes
+
+- The `useEffect()` function calls its first argument (the effect) after each time a component renders.
+- it runs on each update
+- - [] - dependencies : decides when and how many times to run
+  - [count] : means that it should run only when count is updated
+  - empty [] tells that it should run only once
+  - else it goes on for an infinite loop 
+
+
+
+ ```jsx
+import React, {useState,useEffect} from 'react'
+import ReactDOM from 'react-dom'
+
+export default function Example{
+  const [count,setCount]=useState(0)
+
+  useEffect(()=>{
+    document.title = `Clicked: ${count} times`
+  },[])
+  // [] - dependencies : decides when and how many times to run
+  // empty [] tells that it should run only once
+  // else it goes on for an infinite loop 
+
+  const click = () =>{
+    setCount((count)=>count+1)
+  }
+
+  return (
+    <div>
+      <button onClick={click}>
+        Click me
+      </button>
+    </div>
+  )
+}
+
+ReactDOM.render(</Example>,target)
+```
+Every time the button is clicked,DOM re-renders and `useEffect` senses it and changes the ui accordingly

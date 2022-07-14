@@ -40,6 +40,19 @@ const delData = (req, res) => {
   });
 };
 
+const sum = (...n) => {
+  return n.reduce((a, b) => a + b, 0);
+};
+
+//equivalent to
+function sum(a, b) {
+  // a - accumulator
+  // b - value
+
+  a = 0;
+  return (a += b);
+}
+
 module.exports = {
   getData,
   addData,

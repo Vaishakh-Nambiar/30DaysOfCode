@@ -7,9 +7,9 @@ public class dsaLab {
     public static void main(String[] args) {
         System.out.println("Queues");
 
-        Queues_impl Queue_privilege = new Queues_impl();
-        Queues_impl Queue_normal = new Queues_impl();
-        Queues_impl Queue_unaccepted = new Queues_impl();
+        qimp q_privilege = new qimp();
+        qimp q_normal = new qimp();
+        qimp q_unaccepted = new qimp();
 
         Scanner sc = new Scanner(System.in);
 
@@ -23,35 +23,35 @@ public class dsaLab {
 
             amt = sc.nextInt();
             if (amt > 20) {
-                Queue_privilege.enqueue(amt);
+                q_privilege.enqueue(amt);
 
-            } else if (amt < 6) {
-                Queue_normal.enqueue(amt);
+            } else if (amt < 4) {
+                q_normal.enqueue(amt);
             } else {
-                Queue_unaccepted.enqueue(amt);
+                q_unaccepted.enqueue(amt);
             }
         }
 
         System.out.println("normal: ");
-        Queue_normal.show();
+        q_normal.show();
 
         System.out.println(" ");
 
         System.out.println("privilege: ");
-        Queue_privilege.show();
+        q_privilege.show();
 
         System.out.println(" ");
 
         System.out.println("unnaccepted: ");
-        Queue_unaccepted.show();
+        q_unaccepted.show();
 
         System.out.println(" ");
 
         System.out.println("Sum privilege: ");
-        System.out.println(Queue_privilege.sum() + "0000");
+        System.out.println(q_privilege.sum() + "0000");
 
         System.out.println("Sum normal: ");
-        System.out.println(Queue_normal.sum() + "0000");
+        System.out.println(q_normal.sum() + "0000");
 
     }
 }
@@ -67,12 +67,12 @@ class Node {
     }
 }
 
-class Queues_impl {
-    Node f = null;
-    Node r = null;
+class qimp {
+    Node front = null;
+    Node rear = null;
 
     boolean isEmpty() {
-        if (f == null && r == null) {
+        if (front == null && rear == null) {
             return true;
         }
         return false;
@@ -82,12 +82,12 @@ class Queues_impl {
         Node tempNode = new Node(data);
 
         if (isEmpty()) {
-            f = r = tempNode;
+            front = rear = tempNode;
         } else {
-            r.next = tempNode;
+            rear.next = tempNode;
         }
 
-        r = tempNode;
+        rear = tempNode;
     }
 
     void dequeue() {
@@ -95,13 +95,13 @@ class Queues_impl {
         if (isEmpty()) {
             System.out.println("Not possible");
         } else {
-            f = f.next;
+            front = front.next;
         }
     }
 
     int sum() {
         int sum = 0;
-        Node current = f;
+        Node current = front;
 
         while (current != null) {
             sum += current.data;
@@ -112,7 +112,7 @@ class Queues_impl {
     }
 
     void show() {
-        Node current = f;
+        Node current = front;
 
         while (current != null) {
             System.out.print(current.data + "0000 ");

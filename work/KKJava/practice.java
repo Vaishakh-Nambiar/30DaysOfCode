@@ -1,5 +1,6 @@
 import java.util.*;
 
+// People are standing in a queue to deposit an amount in a chit company .If the amount they deposit is greater than 2 lakh add them to Queue_ privilege else if the amount they deposit is less than forty thousand add them to Queue_normal. Find the total amount deposited by privileged customers and normal customers separatel
 public class practice {
 
     public static void main(String[] args) {
