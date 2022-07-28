@@ -202,3 +202,4 @@ constructor(props){
 //react merges these
 ```
 But we can update them independently by using setState()
+
