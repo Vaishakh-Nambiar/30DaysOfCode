@@ -12,4 +12,4 @@ npm start
 - <a href="notes\states.md">States</a>
 - <a href="notes\lifecycleMethods.md">Life Cycle Methods</a>
 - <a href="notes\hooks.md">Hooks</a>
-- <a href="notes\Forms.md">Forms </a>
+- <a href="notes\forms.md">Forms </a>
