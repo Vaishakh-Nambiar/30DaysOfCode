@@ -212,7 +212,7 @@ function Login() {
 - - [] - dependencies : decides when and how many times to run
   - [count] : means that it should run only when count is updated
   - empty [] tells that it should run only once
-  - else it goes on for an infinite loop 
+  - else it goes on for an `INFINITE` loop 
 
 
 
@@ -246,3 +246,108 @@ export default function Example{
 ReactDOM.render(</Example>,target)
 ```
 Every time the button is clicked,DOM re-renders and `useEffect` senses it and changes the ui accordingly
+
+
+`INFINITE` lopp ex: 
+```jsx
+import React,{useState} from 'react'
+
+const [d,setData] = useState({})
+
+console.log("rendering")
+// this goes infinitelyy
+
+fetch("someapi.com")
+  .then(res=>res.json())
+  .then(data => setData(data))
+
+return (
+  <div>{d}</div>
+)
+```
+- What `side effect` occurs here is :
+  - data is `fetched`
+  - `setData` is called
+  - page is `re-rendered`
+  - ON `re-rendering`, fetch is called again
+- This goes on without any boundaries to control it
+
+<a href="https://overreacted.io/a-complete-guide-to-useeffect/">THATS WHAT SHE SAID!</a>
+
+### Dependecy array
+
+- The `dependency array` basically tells the hook to "only trigger when the dependency array changes"
+
+```jsx
+import {React,useState,useEffect} from 'react'
+
+export deafult function App(){
+
+  const [count,setCount] = useState(0);
+  console.log("rendering")
+
+  useEffect(()=>{
+    console.log("Effect ran")
+  },)
+  // },[] ) // try both of them 
+
+  return (
+        <div>
+            <h2>The count is {count}</h2>
+            <button onClick={() => setCount(prevCount => prevCount + 1)}>Add</button>
+        </div>
+    )
+}
+```
+- if the depdendeny array had 'count' in it , useEffect would only run when count changes
+  
+```jsx
+  useEffect(()=>{
+    console.log("Effect ran")
+  },[count])
+    // runs only when count changes
+
+--------------------------------------------------------
+
+  useEffect(()=>{
+    console.log("Effect ran")
+  },[0])
+  // runs only when the value is 0
+```
+
+- when the dependecy array is empty, it simply means that the hook will only trigger once when the component is `first rendered`
+```jsx
+  useEffect(()=>{
+    console.log("Effect ran")
+  },[])
+  // runs only once , when the component is first triggered
+```
+  
+## ASYNC and useEffects
+
+```jsx
+// ❌ don't do this
+  useEffect(async ()=>{
+    const data = await fetchData();
+  },[fetchData])
+```
+- The issue here is that the first argument of useEffect is supposed to be a function that returns either nothing (undefined) or a function (to clean up side effects).
+-  But an async function `returns a Promise`, which can't be called as a `function`! It's simply not what the useEffect hook expects for its first argument.
+
+- To solve this: Write the asynchronous function `inside` the useEffect
+- 
+```jsx
+// correct way
+useEffect(() => {
+  // declare the data fetching function
+  const fetchData = async () => {
+    const data = await fetch('https://yourapi.com');
+  }
+
+  // call the function
+  fetchData()
+    // make sure to catch any error
+    .catch(console.error);
+}, [])
+
+```

@@ -121,3 +121,178 @@ function MyForm() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<MyForm />)
 ```
+
+## CheckBox
+
+- The `htmlFor` property (used in react) sets or returns the value of the `for` attribute of a label.
+- The `for` attribute specifies which form element a label is bound to.
+```html
+HTML
+
+`for`
+<input type="radio" id="isFriendly" >
+<label for="isFriendly">Friendly ?</label>
+```
+
+```jsx
+JSX
+
+`htmlFor`
+<input type="checkbox" id="isFriendly"/>
+<label htmlFor="isFriendly">Friendly ?<label/>
+```
+
+
+- The value here would be `boolean`
+- So instead of a `value` property , a `checked` property is used 
+- When the `checked` property is `"not-empty"` , it is checked else unchecked
+```jsx
+// non-empty `checked`
+
+ <input 
+                type="checkbox" 
+                id="isFriendly" 
+                checked={"Hi"}
+            />
+            
+//empty `checked`
+ <input 
+                type="checkbox" 
+                id="isFriendly" 
+                checked={""}
+            />
+    
+```
+
+## Radio buttons
+- Here again , we use `values` and `checked` for radio buttons
+- Names and values are added for controlled components
+
+```jsx
+<input type="radio"  
+       id="part-time"
+       
+       name="employment"
+       value="unemployed"
+       // name and value added for controlled components
+       checked={formData.employment === "part-time"}
+       //check only if it is true
+       onChange={handleChange}
+/>
+```
+
+## Select and options
+```jsx
+function MyForm() {
+  const [myCar, setMyCar] = useState("Volvo");
+
+  const handleChange = (event) => {
+    setMyCar(event.target.value)
+  }
+
+  return (
+    <form>
+      <select value={myCar} onChange={handleChange}>
+        <option value="Ford">Ford</option>
+        <option value="Volvo">Volvo</option>
+        <option value="Fiat">Fiat</option>
+      </select>
+    </form>
+  )
+}
+```
+
+---
+
+### Signup Form
+```jsx
+import React from "react"
+
+export default function App() {
+    const [data, setData] = React.useState({
+        email:"",
+        pwd:"",
+        cnpwd:"",
+        checked:false
+    })
+    
+    function handleChange(e){
+        const {name,value,checked} = e.target
+        
+        setData( prev =>{
+           return {
+               ...prev,
+               [name]: name == "checked" ? checked : value
+           }            
+        })
+        
+    }
+    
+    function checkData(){
+                
+        const {pwd,cnpwd,checked}=data
+        let sp = "", nl=""
+        pwd == cnpwd ? sp="Successfully signed up" : sp = "Passwords to not match" 
+        console.log(sp) 
+        
+        
+        pwd == cnpwd ? checked ? nl="Thanks for signing up for our newsletter!" : "" : "Sign Up first" 
+        console.log(nl) 
+    }
+    
+    function handleSubmit(event) {
+        
+        event.preventDefault()
+        checkData()
+                
+    }
+    
+    return (
+        <div className="form-container">
+            <form className="form" onSubmit={handleSubmit}>
+                <input 
+                    type="email" 
+                    placeholder="Email address"
+                    className="form--input"
+                    onChange={handleChange}
+                    name="email"
+                    value={data.email}
+                />
+                <input 
+                    type="password" 
+                    placeholder="Password"
+                    className="form--input"
+                    onChange={handleChange}
+                    name="pwd"
+                    value={data.pwd}
+                />
+                <input 
+                    type="password" 
+                    placeholder="Confirm password"
+                    className="form--input"
+                    onChange={handleChange}
+                    name="cnpwd"
+                    value={data.cnpwd}
+                />
+                
+                <div className="form--marketing">
+                    <input
+                        id="okayToEmail"
+                        type="checkbox"
+                        name="checked"
+                        value={data.checked}
+                        onClick={handleChange}
+                    />
+                    <label htmlFor="okayToEmail">I want to join the newsletter</label>
+                </div>
+                <button 
+                    className="form--submit"
+                >
+                    Sign up
+                </button>
+            </form>
+        </div>
+    )
+}
+
+```
